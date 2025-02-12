@@ -70,4 +70,18 @@ if option == "Visualisasi Data":
 
 elif option == "Hasil Binning":
     st.subheader("📊 Hasil Binning Peminjaman Sepeda dan Faktor Cuaca")
+
+    # Binning untuk Jumlah Peminjaman
+    day['cnt_category'] = pd.cut(day['cnt'], bins=[0, 2000, 4000, day['cnt'].max()], 
+                                  labels=['Rendah', 'Sedang', 'Tinggi'])
+
+    # Binning untuk Suhu
+    day['temp_category'] = pd.cut(day['temp'], bins=[0, 0.3, 0.6, 1], 
+                                   labels=['Dingin', 'Normal', 'Panas'])
+
+    # Binning untuk Kelembaban
+    day['hum_category'] = pd.cut(day['hum'], bins=[0, 0.4, 0.7, 1], 
+                                  labels=['Rendah', 'Sedang', 'Tinggi'])
+
+    # Menampilkan hasil
     st.dataframe(day[['cnt', 'cnt_category', 'temp', 'temp_category', 'hum', 'hum_category']].head(20))
